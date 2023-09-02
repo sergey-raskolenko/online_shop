@@ -1,0 +1,78 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Fruit",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Vegetable",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Snack",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Apple",
+      "description": "",
+      "photo": "",
+      "category": 1,
+      "price": 10,
+      "date_creation": "2023-09-02T17:57:47.530Z",
+      "date_update": "2023-09-02T17:57:47.530Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Cucumber",
+      "description": "",
+      "photo": "",
+      "category": 2,
+      "price": 15,
+      "date_creation": "2023-09-02T17:57:47.530Z",
+      "date_update": "2023-09-02T17:57:47.530Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Pringles",
+      "description": "",
+      "photo": "",
+      "category": 3,
+      "price": 50,
+      "date_creation": "2023-09-02T17:57:47.530Z",
+      "date_update": "2023-09-02T17:57:47.530Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Banana",
+      "description": "",
+      "photo": "",
+      "category": 1,
+      "price": 20,
+      "date_creation": "2023-09-02T17:57:47.530Z",
+      "date_update": "2023-09-02T17:57:47.530Z"
+    }
+  }
+]
