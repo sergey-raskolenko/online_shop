@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+        {% load my_tags %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+                </div>
+                <div class="card-body">
+                    <img class="col-12" src="{{ object.image|mediapath }}">
+                    <p class="text-center">{{ object.body }}</p>
+                </div>
+                <div class="card-footer">
+                    <p class="text-center">Просмотров: {{ object.views_count }}</p>
+                    <p class="text-center">{{ object.is_published }}</p>
+                    {% if object.creation_date %}
+                    <p class="text-center">Дата создание: {{ object.creation_date }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
