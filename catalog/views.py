@@ -12,7 +12,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
-        context_data['objects_list']= Product.objects.all()
+        context_data['objects_list'] = Product.objects.all()
         return context_data
 
 
@@ -34,7 +34,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         product_item = Product.objects.get(pk=self.kwargs.get('pk'))
-        context_data['object']= product_item
-        context_data['title']= f'{product_item.name}'
+        context_data['object'] = product_item
+        context_data['title'] = f'{product_item.name}'
         return context_data
 
