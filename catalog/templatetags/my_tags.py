@@ -6,7 +6,7 @@ register = template.Library()
 def mediapath(value):
     if value:
         return f'/media/{value}'
-    return '#'
+    return '/static/not_found.png'
 
 @register.filter()
 def mediapath(val):

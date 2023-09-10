@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <div class="col">
+        <h1 class="display-4">SkyBlog</h1>
+        <a class="btn btn-outline-primary" href="{% url 'catalog:create_blog' %}">Создать блог</a>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        {% load my_tags %}
+        <div class="col-4">
+            <div class="card m-1 box-shadow" style="height: 34rem;">
+                <div class="card-header">
+                    <h4 class="font-weight-normal">{{ object }}</h4>
+                </div>
+                <div class="card-body">
+                    <img class="col-12" src="{{ object.image|mediapath }}">
+                    <p class="text-center">{{object.body | slice:100}}</p></div>
+                <div class="card-footer">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-outline-primary" href="{% url 'catalog:blog' object.pk %}">View</a>
+                        <a class="btn btn-outline-warning"
+                           href="{% url 'catalog:edit_blog' object.pk %}">Edit</a>
+                        <a class="btn btn-outline-danger" href="{% url 'catalog:delete' object.pk %}">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
