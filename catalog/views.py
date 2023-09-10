@@ -1,14 +1,19 @@
 from django.shortcuts import render
+from django.views.generic import DetailView, TemplateView
 
 from catalog.models import Product
 
 
-def index(request):
-    context = {
-        'objects_list': Product.objects.all(),
+class IndexView(TemplateView):
+    template_name = 'catalog/index.html'
+    extra_context = {
         'title': 'Каталог'
     }
-    return render(request, 'catalog/index.html', context)
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        context_data['objects_list']= Product.objects.all()
+        return context_data
 
 
 def contacts(request):
@@ -23,9 +28,13 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-def item(request, pk):
-    context = {
-        'object': Product.objects.get(pk=pk),
-        'title': f'{Product.objects.get(pk=pk).name}',
-    }
-    return render(request, 'catalog/item.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        product_item = Product.objects.get(pk=self.kwargs.get('pk'))
+        context_data['object']= product_item
+        context_data['title']= f'{product_item.name}'
+        return context_data
+
