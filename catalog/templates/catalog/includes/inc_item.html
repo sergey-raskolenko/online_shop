@@ -10,12 +10,20 @@
             <div class="row">
                 <img class="img-fluid" src="{% mediapath object.photo %}"
                      data-holder-rendered="true" style="width: 20%; height: 20%">
-            <div class="col-6">
-                <h4 class="mx-5 card-title pricing-card-title">{{ object.price }} руб.</h4>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>{{ object.description }}</li>
-                </ul>
+                <div class="col-6">
+                    <h4 class="mx-5 card-title pricing-card-title">{{ object.price }} руб.</h4>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ object.description }}</li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group">
+                <a href="{% url 'catalog:update_item' object.pk %}"
+                   class="btn btn-sm btn-outline-secondary">Update</a>
+                <a href="{% url 'catalog:delete_item' object.pk %}"
+                   class="btn btn-sm btn-outline-danger">Delete</a>
             </div>
         </div>
     </div>

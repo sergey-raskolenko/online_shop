@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -37,3 +39,24 @@ class ProductDetailView(DetailView):
         context_data['object'] = product_item
         context_data['title'] = f'{product_item.name}'
         return context_data
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('catalog:item', args=[self.object.pk])
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('catalog:item', args=[self.object.pk])
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:index')

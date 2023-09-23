@@ -5,6 +5,10 @@
 </div>
 
 <div class="container">
+    <div class="btn-group">
+        <a href="{% url 'catalog:create_item' %}"
+           class="btn btn-sm btn-primary"> Добавить продукт</a>
+    </div>
     <div class="row  text-center">
         {% for object in objects_list %}
         {% load my_tags %}
@@ -21,9 +25,10 @@
 
                 <div class="card-footer">
                     <div class="btn-group">
-                    <a href="{% url 'catalog:item' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">
-                        К товару
-                    </a>
+                        <a href="{% url 'catalog:item' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-secondary">
+                            К товару
+                        </a>
                     </div>
                 </div>
             </div>
