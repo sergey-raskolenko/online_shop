@@ -5,11 +5,15 @@
 </div>
 
 <div class="container">
-    <div class="row text-center">
+    <div class="btn-group">
+        <a href="{% url 'catalog:create_item' %}"
+           class="btn btn-sm btn-primary"> Добавить продукт</a>
+    </div>
+    <div class="row  text-center">
         {% for object in objects_list %}
         {% load my_tags %}
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
+        <div class="p-2 col-3">
+            <div class="card h-100 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
                 </div>
@@ -17,10 +21,14 @@
                     <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
                     <img class="col-12" src="{{ object.photo|mediapath }}">
                     <p class="text-center">{{object.description | slice:100}}</p>
+                </div>
+
+                <div class="card-footer">
                     <div class="btn-group">
-                    <a href="{% url 'catalog:item' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">
-                        К товару
-                    </a>
+                        <a href="{% url 'catalog:item' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-secondary">
+                            К товару
+                        </a>
                     </div>
                 </div>
             </div>
