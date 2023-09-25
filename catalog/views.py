@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -74,6 +75,10 @@ class ProductUpdateView(UpdateView):
         if formset.is_valid():
             formset.instance = self.object
             formset.save()
+
+            active_versions = self.object.version_set.filter(is_active=True)
+            if len(active_versions) != 1:
+                raise forms.ValidationError("Вы должны выбрать только одну активную версию продукта.")
 
         return super().form_valid(form)
 
