@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'online_shop',
         'USER': 'postgres',
-        'PASSWORD': '3881125',
+        'PASSWORD': post_config.PASSWORD,
     }
 }
 
@@ -133,7 +134,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# Configs to post connection
 EMAIL_BACKEND = post_config.EMAIL_BACKEND
 EMAIL_HOST = post_config.EMAIL_HOST
 EMAIL_PORT = post_config.EMAIL_PORT
@@ -145,3 +146,8 @@ EMAIL_HOST_PASSWORD = post_config.EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
+
+# For users model
+AUTH_USER_MODEL = 'users.User'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
