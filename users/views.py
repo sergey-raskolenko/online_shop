@@ -8,11 +8,12 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
 
 from config import settings
-from users.forms import UserForm, UserRegisterForm
+from users.forms import UserForm, UserRegisterForm, UserLoginForm
 from users.models import User
 
 
 class LoginView(BaseLoginView):
+	form_class = UserLoginForm
 	template_name = 'users/login.html'
 
 
