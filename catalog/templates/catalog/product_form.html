@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-12">
     <form class="row p-4" method="post" enctype="multipart/form-data">
-
+        {% if user.is_authenticated %}
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
@@ -44,5 +44,17 @@
         {% endif %}
 
     </form>
+    {% else %}
+
+    <div class="container ">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header"><h1>Вы неавторизованный пользователь</h1></div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endif %}
 </div>
 {% endblock %}
