@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import post_config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -133,3 +133,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = post_config.EMAIL_BACKEND
+EMAIL_HOST = post_config.EMAIL_HOST
+EMAIL_PORT = post_config.EMAIL_PORT
+EMAIL_USE_SSL = post_config.EMAIL_USE_SSL
+
+EMAIL_HOST_USER = post_config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = post_config.EMAIL_HOST_PASSWORD
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
