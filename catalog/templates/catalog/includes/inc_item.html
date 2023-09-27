@@ -12,6 +12,7 @@
                 {% endfor %}
             </div>
             <div class="card-body">
+
                 <div class="row">
                     <img class="img-fluid" src="{% mediapath object.photo %}"
                          data-holder-rendered="true" style="width: 20%; height: 20%">
@@ -24,15 +25,18 @@
                 </div>
             </div>
             <div class="card-footer">
+
+                {% if user.is_authenticated %}
+
+                <p class="card-text">Создатель: {{ object.owner|default:"Неизвестен" }}</p>
                 <div class="btn-group">
                     <a href="{% url 'catalog:update_item' object.pk %}"
                        class="btn btn-sm btn-outline-secondary">Update</a>
                     <a href="{% url 'catalog:delete_item' object.pk %}"
                        class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
-
 </div>
