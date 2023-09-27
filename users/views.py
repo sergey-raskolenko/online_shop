@@ -10,6 +10,7 @@ from django.views.generic import CreateView, UpdateView
 from config import settings
 from users.forms import UserForm, UserRegisterForm, UserLoginForm
 from users.models import User
+from users.settings import create_password
 
 
 class LoginView(BaseLoginView):
@@ -48,17 +49,16 @@ class UserUpdateView(UpdateView):
 
 
 def generate_password(request):
-	new_password = ''.join([str(random.randint(0, 9)) for _ in range(9)])
+	new_password = create_password()
 	request.user.set_password(new_password)
 	request.user.save()
 	message = f'You registered new password on our website: {new_password}'
-	print(message)
 
-	# send_mail(
-	# 	subject='New Password',
-	# 	message=f'You registered new password on our website: {new_password}',
-	# 	from_email=settings.EMAIL_HOST_USER,
-	# 	recipient_list=[request.user.email]
-	# )
+	send_mail(
+		subject='New Password',
+		message=f'You registered new password on our website: {new_password}',
+		from_email=settings.EMAIL_HOST_USER,
+		recipient_list=[request.user.email]
+	)
 
 	return redirect(reverse('catalog:index'))
