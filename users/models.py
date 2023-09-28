@@ -13,7 +13,7 @@ class User(AbstractUser):
 	phone = models.CharField(max_length=35, verbose_name='телефон', **NULLABLE)
 	country = models.CharField(max_length=35, verbose_name='страна', **NULLABLE)
 
-	verification_code = models.CharField(max_length=35, verbose_name='код верификации', **NULLABLE)
+	token = models.CharField(max_length=200, verbose_name='токен верификации', **NULLABLE)
 
 	USERNAME_FIELD = "email"
 	REQUIRED_FIELDS = []
