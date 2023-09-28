@@ -5,10 +5,13 @@
 </div>
 
 <div class="container">
+
+    {% if user.is_authenticated %}
     <div class="btn-group">
         <a href="{% url 'catalog:create_item' %}"
            class="btn btn-sm btn-primary"> Добавить продукт</a>
     </div>
+    {% endif %}
     <div class="row  text-center">
         {% for object in objects_list %}
         {% load my_tags %}

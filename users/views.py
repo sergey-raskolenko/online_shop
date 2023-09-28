@@ -1,16 +1,16 @@
-import random
+import secrets
 
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views import View
+from django.views.generic import CreateView, UpdateView, TemplateView
 
 from config import settings
 from users.forms import UserForm, UserRegisterForm, UserLoginForm
 from users.models import User
-from users.settings import create_password
 
 
 class LoginView(BaseLoginView):
@@ -29,14 +29,41 @@ class RegisterView(CreateView):
 	template_name = 'users/register.html'
 
 	def form_valid(self, form):
-		new_user = form.save()
+		user = form.save(commit=False)
+		user.is_active = False
+		token = secrets.token_urlsafe(nbytes=8)
+
+		user.token = token
+		activate_url = reverse_lazy('users:email_verified', kwargs={'token': user.token})
 		send_mail(
-			subject='Congratulations with registration',
-			message='You registered on our website!',
+			subject='Подтверждение почты',
+			message=f'Для подтверждения регистрации перейдите по ссылке: '
+					f'http://localhost:8000/{activate_url}',
 			from_email=settings.EMAIL_HOST_USER,
-			recipient_list=[new_user.email]
+			recipient_list=[user.email],
+			fail_silently=False
 		)
-		return super().form_valid(form)
+		user.save()
+
+		return redirect('users:to_verify')
+
+
+class EmailConfirmationSentView(TemplateView):
+	template_name = 'users/user_verification.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		return context
+
+
+class UserConfirmEmailView(View):
+	def get(self, request, token):
+		user = User.objects.get(token=token)
+
+		user.is_active = True
+		user.token = None
+		user.save()
+		return redirect('users:login')
 
 
 class UserUpdateView(UpdateView):
@@ -49,14 +76,13 @@ class UserUpdateView(UpdateView):
 
 
 def generate_password(request):
-	new_password = create_password()
+	new_password = secrets.token_hex(nbytes=8)
 	request.user.set_password(new_password)
 	request.user.save()
-	message = f'You registered new password on our website: {new_password}'
 
 	send_mail(
 		subject='New Password',
-		message=f'You registered new password on our website: {new_password}',
+		message=f'You registered a new password on our website: {new_password}',
 		from_email=settings.EMAIL_HOST_USER,
 		recipient_list=[request.user.email]
 	)
