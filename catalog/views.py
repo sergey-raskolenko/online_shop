@@ -6,6 +6,7 @@ from django.views.generic import DetailView, TemplateView, CreateView, UpdateVie
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version, Category
+from catalog.services import get_categories
 
 
 class IndexView(TemplateView):
@@ -14,8 +15,8 @@ class IndexView(TemplateView):
         'title': 'Каталог'
     }
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         context_data['objects_list'] = Product.objects.all()
         return context_data
 
@@ -35,8 +36,8 @@ def contacts(request):
 class ProductDetailView(DetailView):
     model = Product
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         product_item = Product.objects.get(pk=self.kwargs.get('pk'))
         context_data['object'] = product_item
         context_data['title'] = f'{product_item.name}'
@@ -101,3 +102,9 @@ class CategoryListView(ListView):
     model = Category
     success_url = reverse_lazy('catalog:categories')
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        categories = get_categories()
+        context_data['categories'] = categories
+
+        return context_data
