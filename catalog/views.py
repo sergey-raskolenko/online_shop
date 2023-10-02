@@ -2,10 +2,10 @@ from django import forms
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, TemplateView, CreateView, UpdateView, DeleteView, ListView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 
 
 class IndexView(TemplateView):
@@ -95,3 +95,9 @@ class ProductUpdateView(UpdateView):
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
+
+
+class CategoryListView(ListView):
+    model = Category
+    success_url = reverse_lazy('catalog:categories')
+
